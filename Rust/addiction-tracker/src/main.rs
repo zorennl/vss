@@ -4,7 +4,7 @@ fn push(file: &str, value: u16) {
     write(file, value.to_le_bytes()).expect("Failed to write to file");
 }
 fn pull(file: &str) -> std::io::Result<u16> {
-    let bytes = read(file).expect("Failed to read file please run 'goon init' first");
+    let bytes = read(file).expect("Failed to read file please run 'track init' first");
     Ok(u16::from_le_bytes([bytes[0], bytes[1]]))
 }
 
@@ -18,7 +18,7 @@ fn main() {
 
     if input == Some("init".to_string()) {
         println!("Instantiting required files");
-        create_dir("/home/zmynz/.local/addiction/goon/").expect("Failed to create folder");
+        create_dir("/home/zmynz/.local/share/addiction").expect("Failed to create folder");
         File::create_new(STREAK_PATH).expect("Failed to create file");
         push(STREAK_PATH, 0);
         File::create_new(RESETS_PATH).expect("Failed to create file");
@@ -49,6 +49,8 @@ fn main() {
             println!("Halfway there keep going");
         } else if streak >= 25 {
             println!("Hell Yeah!");
+        } else {
+            println!("Loser get better");
         }
     }
 }
